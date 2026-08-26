@@ -10,6 +10,12 @@ df["data_hora_inicio"] = pd.to_datetime(
     + df["minutos_intervalo"].str[:5]
 )
 
+
+# Formato ISO compatível com Elasticsearch
+df["data_hora_inicio"] = df["data_hora_inicio"].dt.strftime(
+    "%Y-%m-%dT%H:%M:%S"
+)
+
 # Para ver como ficou 
 print(
     df[
