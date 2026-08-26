@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>CTTU - Velocidade das Vias</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+    <header class="header">
+
+        <div>
+
+            <h1>Velocidade das Vias</h1>
+
+            <p>
+                API de consulta e gerenciamento dos dados da CTTU
+            </p>
+
+        </div>
+
+        <span class="status" id="status">
+            Verificando API...
+        </span>
+
+    </header>
+
+
+    <main class="container">
+
+
+        <!-- ============================= -->
+        <!-- CONSULTAS -->
+        <!-- ============================= -->
+
+        <section class="card">
+
+            <h2>Consultas</h2>
+
+            <div class="grid">
+
+
+                <div class="field">
+
+                    <label for="periodo">
+                        Período
+                    </label>
+
+                    <select id="periodo">
+
+                        <option value="">
+                            Selecione
+                        </option>
+
+                        <option value="ferias">
+                            Férias
+                        </option>
+
+                        <option value="nao_ferias">
+                            Não férias
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="velocidade">
+                        Faixa de velocidade
+                    </label>
+
+                    <select id="velocidade">
+
+                        <option value="">
+                            Selecione
+                        </option>
+
+                        <option value="0-10">
+                            0-10 km/h
+                        </option>
+
+                        <option value="11-20">
+                            11-20 km/h
+                        </option>
+
+                        <option value="21-30">
+                            21-30 km/h
+                        </option>
+
+                        <option value="31-40">
+                            31-40 km/h
+                        </option>
+
+                        <option value="41-50">
+                            41-50 km/h
+                        </option>
+
+                        <option value="51-60">
+                            51-60 km/h
+                        </option>
+
+                        <option value="61-70">
+                            61-70 km/h
+                        </option>
+
+                        <option value="71-80">
+                            71-80 km/h
+                        </option>
+
+                        <option value="81-90">
+                            81-90 km/h
+                        </option>
+
+                        <option value="91-100">
+                            91-100 km/h
+                        </option>
+
+                        <option value="acima_100">
+                            Acima de 100 km/h
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="equipamento">
+                        Equipamento
+                    </label>
+
+                    <input
+                        type="text"
+                        id="equipamento"
+                        placeholder="Ex.: CTTU-9466"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="data-inicio">
+                        Data inicial
+                    </label>
+
+                    <input
+                        type="datetime-local"
+                        id="data-inicio"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="data-fim">
+                        Data final
+                    </label>
+
+                    <input
+                        type="datetime-local"
+                        id="data-fim"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <div class="buttons">
+
+                <button
+                    class="primary"
+                    onclick="filtrarDados()"
+                >
+                    Aplicar filtros
+                </button>
+
+                <button
+                    class="secondary"
+                    onclick="listarDados()"
+                >
+                    Listar dados
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- BUSCAR POR ID -->
+        <!-- ============================= -->
+
+        <section class="card">
+
+            <h2>Buscar documento por ID</h2>
+
+            <div class="inline">
+
+                <input
+                    type="text"
+                    id="documento-id"
+                    placeholder="Cole o ID do documento"
+                >
+
+                <button
+                    class="primary"
+                    onclick="buscarPorId()"
+                >
+                    Buscar
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- RESULTADOS -->
+        <!-- ============================= -->
+
+        <section class="card">
+
+            <div class="section-title">
+
+                <h2>Resultados</h2>
+
+                <span id="resultado-contador">
+                    —
+                </span>
+
+            </div>
+
+            <div id="resultados">
+
+                <p class="empty">
+                    Nenhuma consulta realizada.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================= -->
+        <!-- CRUD -->
+        <!-- ============================= -->
+
+        <section class="card">
+
+            <h2>CRUD</h2>
+
+
+            <div class="crud-grid">
+
+
+                <div>
+
+                    <h3>Criar documento</h3>
+
+                    <textarea
+                        id="criar-json"
+                        rows="12"
+                    >{
+    "ano": 2026,
+    "mes": 1,
+    "equipamento": "TESTE-API",
+    "faixa": "A",
+    "data": "2026-01-01",
+    "hora": 12,
+    "minutos_intervalo": "12:00-12:15",
+    "periodo": "ferias",
+    "faixa_velocidade": "41-50",
+    "quantidade": 10,
+    "data_hora_inicio": "2026-01-01T12:00:00"
+}</textarea>
+
+                    <button
+                        class="success"
+                        onclick="criarDocumento()"
+                    >
+                        Criar
+                    </button>
+
+                </div>
+
+
+                <div>
+
+                    <h3>Atualizar documento</h3>
+
+                    <input
+                        type="text"
+                        id="atualizar-id"
+                        placeholder="ID do documento"
+                    >
+
+                    <textarea
+                        id="atualizar-json"
+                        rows="8"
+                    >{
+    "quantidade": 25
+}</textarea>
+
+                    <button
+                        class="warning"
+                        onclick="atualizarDocumento()"
+                    >
+                        Atualizar
+                    </button>
+
+                </div>
+
+
+                <div>
+
+                    <h3>Excluir documento</h3>
+
+                    <input
+                        type="text"
+                        id="deletar-id"
+                        placeholder="ID do documento"
+                    >
+
+                    <button
+                        class="danger"
+                        onclick="deletarDocumento()"
+                    >
+                        Excluir
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
