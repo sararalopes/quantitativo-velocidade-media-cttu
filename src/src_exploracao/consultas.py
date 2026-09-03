@@ -246,3 +246,39 @@ for periodo in resposta["aggregations"]["por_periodo"]["buckets"]:
             f"{total:,.0f} veículos "
             f"({percentual:.2f}%)"
         )
+
+"""
+
+--- NAO_FERIAS ---
+Total de veículos: 102,921,109
+
+      0-10 km/h → 1,265,690 veículos (1.23%)
+     11-20 km/h → 5,019,149 veículos (4.88%)
+     21-30 km/h → 13,578,394 veículos (13.19%)
+     31-40 km/h → 33,713,431 veículos (32.76%)
+     41-50 km/h → 37,538,471 veículos (36.47%)
+     51-60 km/h → 11,375,619 veículos (11.05%)
+     61-70 km/h → 351,612 veículos (0.34%)
+     71-80 km/h → 58,545 veículos (0.06%)
+     81-90 km/h → 15,181 veículos (0.01%)
+    91-100 km/h → 3,810 veículos (0.00%)
+ acima_100 km/h → 1,207 veículos (0.00%)
+
+--- FERIAS ---
+Total de veículos: 98,280,376
+
+      0-10 km/h → 1,019,164 veículos (1.04%)
+     11-20 km/h → 4,232,646 veículos (4.31%)
+     21-30 km/h → 12,020,724 veículos (12.23%)
+     31-40 km/h → 32,112,755 veículos (32.67%)
+     41-50 km/h → 36,982,239 veículos (37.63%)
+     51-60 km/h → 11,451,097 veículos (11.65%)
+     61-70 km/h → 376,267 veículos (0.38%)
+     71-80 km/h → 63,557 veículos (0.06%)
+     81-90 km/h → 16,382 veículos (0.02%)
+    91-100 km/h → 4,213 veículos (0.00%)
+ acima_100 km/h → 1,332 veículos (0.00%)
+
+"""
+
+# Na distribuição observada, o período classificado como férias apresentou maior participação relativa de veículos nas faixas de 41–50 km/h e 51–60 km/h, enquanto as faixas de 11–30 km/h apresentaram menor participação em comparação ao período não férias.
