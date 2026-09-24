@@ -180,6 +180,8 @@ teste = (
     df_clf["data_hora"] >= data_corte
 )
 
+# 133
+
 limite_baixo = (
     df_clf.loc[
         treino,
